@@ -1,21 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import { useSelector } from 'react-redux';
 import ZipForm from './Components/ZipForm';
 import Location from './Components/Location';
-import { useState } from 'react';
 import Navbar from './Components/Navbar';
 
 function App() {
-  const [location, setLocation] = useState(null);
+  // Select the 'swap' state from the Redux store using useSelector
+  const { swap } = useSelector((store) => store);
 
-  const clearLocation = () => {
-    setLocation(null);
-  };
   return (
     <div className="App">
-      <Navbar/>
-       <ZipForm onFetchLocation={setLocation}/>
-       {/* <Location location={location} clearLocation={clearLocation}/> */}
+      <Navbar />
+
+      {/* Conditional rendering based on the 'swap' state */}
+      { !swap ? <ZipForm /> : <Location /> }
     </div>
   );
 }
